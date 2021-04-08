@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8" />
+<title>Piedra, Papel o Tijeras?</title>
+<meta name="generator" content="Bluefish 2.2.11" />
+<style>
+body{
+
+font-family: sans-serif;
+
+background-image: linear-gradient(to right, lavender , aquamarine);
+}
+
+img{
+	width:200px;
+}
+
+#resultado{
+
+margin-top: 1em;
+width: 600px;
+height: 300px;
+background-color: wheat;
+text-align: center;
+}
+#resultado *{
+display: inline;}
+</style>
+</head>
+
+<body>
+<h1>Piedra, Papel o Tijeras</h1>
+<h3>Jugamos al mejor de 10?</h3>
+<div id="player1">
+<img id="piedra" class="foto" src="piedra.jpeg" onclick="jugar('piedra')">
+<img id="papel"  class="foto" src="papel.jpeg" onclick="jugar('papel')">
+<img id="tijeras" class="foto" src="tijeras.jpeg" onclick="jugar('tijeras')">
+
+</div>
+
+
+
+<div id="resultado">
+
+<img src='' id="userPick" >
+<h2>VS</h2>
+<img src='' id="machinePick"><br>
+<span>Ganador:</span>
+<h3 id="win"></h3><br>
+<p>........................</p>
+
+
+<span style="display: block;">Ganadas:</span><span id="puntosUser"></span>
+<span style="display: block;">Perdidas:</span><span id="puntosMaq"></span>
+</div>
+
+<script>
+
+var userPick = document.getElementById('userPick');
+var machinePick = document.getElementById('machinePick'); 
+var fotos = document.getElementsByClassName('foto');
+var gestos = ['piedra', 'papel', 'tijeras'];
+var puntosUser = document.getElementById('puntosUser');
+var puntosMaq = document.getElementById('puntosMaq');
+var scoreUser = 0;
+var scoreMaquina = 0;
+var jugadas = 0;
+
+
+function jugar(eligeUser) {
+var maq = gestos[Math.floor(Math.random()*3)];
+
+
+if ((eligeUser == 'piedra' && maq == 'tijeras')||(eligeUser == 'tijeras' && maq == 'papel')||(eligeUser == 'papel' && maq == 'piedra')) {
+	let ganador = 'Vos :)';
+	console.log(ganador);
+	document.getElementById('win').innerHTML = ganador;
+	scoreUser++;
+}else if ((maq == 'piedra' && eligeUser == 'tijeras')||(maq == 'tijeras' && eligeUser == 'papel')||(maq == 'papel' && eligeUser == 'piedra')) {
+	let ganador = 'PC';
+	console.log(ganador);
+	document.getElementById('win').innerHTML = 'Yo ;)';
+	scoreMaquina++;
+}
+else {
+
+	let ganador = 'Empate ';
+	console.log(ganador);
+	document.getElementById('win').innerHTML = 'Ningunx :v';
+}
+jugadas++;
+userPick.src = eligeUser + '.jpeg';
+machinePick.src = maq + '.jpeg';
+puntosUser.innerHTML = scoreUser;
+puntosMaq.innerHTML = scoreMaquina;
+
+
+if ((jugadas == 10) && (scoreUser > scoreMaquina)) {
+alert("Ganaste!");
+location.reload();	
+}else if ((jugadas == 10) && (scoreUser < scoreMaquina)) {
+		alert("Game Over!");
+	location.reload();
+}else if ((jugadas == 10) && (scoreUser == scoreMaquina)) {
+		alert("Empate!");
+	location.reload();
+}
+
+
+
+
+}
+</script>
+</body>
+
+</html>
